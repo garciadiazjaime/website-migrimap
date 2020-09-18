@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte";
-  import { getPlaces } from "../utils/mintAPI";
+	import { getPlaces } from "../utils/mintAPI";
+
+	import Card from 'mint-components/components/card.svelte'
 
   let places = [];
 
@@ -16,6 +18,6 @@
 
 {#if places}
 	{#each places as place}
-		{place.name} 
+		<Card title={place.name} />
 	{/each}
 {/if}
