@@ -115,5 +115,5 @@ Sapper is in early development, and may have the odd rough edge here and there. 
 
 ```
 rm -rf node_modules/mint-components
-ln -s ~/[path-to-library]/coupons-components node_modules/@grpn/coupons-components
+ln -s ~/[path-to-library]/mint-components node_modules/@grpn/coupons-components
 ```
