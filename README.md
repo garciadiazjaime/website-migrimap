@@ -109,3 +109,11 @@ npm install -D @sveltejs/svelte-virtual-list
 ## Bugs and feedback
 
 Sapper is in early development, and may have the odd rough edge here and there. Please be vocal over on the [Sapper issue tracker](https://github.com/sveltejs/sapper/issues).
+
+
+## Symlink for mint-components
+
+```
+rm -rf node_modules/mint-components
+ln -s ~/[path-to-library]/coupons-components node_modules/@grpn/coupons-components
+```
