@@ -1,13 +1,16 @@
 <script>
   import { onMount } from "svelte";
 	import { getPlaces } from "../utils/mintAPI";
+	import Profile from "../components/Profile.svelte";
+	import Card from 'mint-components/src/components/ProfileCard.svelte';
+	import Drawer from 'mint-components/src/components/Drawer.svelte';
 
-	import Card from 'mint-components/src/components/ProfileCard.svelte'
-
-  let places = [];
+	let places = [];
+	let visible;
+	let currentProfile = {};
 
   onMount(async () => {
-    places = await getPlaces();
+		places = await getPlaces();
 	});
 
 	function presenter(data) {
@@ -23,15 +26,32 @@
 			gps: [-117.1148935, 32.5062778],
 		}
 	}
+
+	function openProfile (profile) {
+		visible = true;
+		currentProfile = profile;
+	}
 </script>
 
 <svelte:head>
 	<title>MigriMap</title>
 </svelte:head>
+<style>
+	.grid-container {
+		display: grid;
+		grid-column-gap: 20px;
+		grid-row-gap: 20px;
+		grid-template-columns: repeat( auto-fill, minmax(247px, 1fr));
+	}
+</style>
 
-
-{#if places}
-	{#each places as place}
-		<Card profile={presenter(place)} />
-	{/each}
-{/if}
+<div class="grid-container">
+	{#if places}
+		{#each places as place}
+			<Card profile={presenter(place)} cardAction={() => openProfile(presenter(place))} />
+		{/each}
+	{/if}
+</div>
+<Drawer bind:visible>
+  <Profile profile={currentProfile} />
+</Drawer>
