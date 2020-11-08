@@ -25,7 +25,7 @@
 <div class="profile">
   <div>
     <h2>{profile.name}</h2>
-    <Image src={profile.img} alt={profile.title} height="150px"/>
+    <Image src={profile.image} alt={profile.title} height="150px"/>
     <a href={profile.gmaps} target="_blank">{profile.address}</a>
     <Phone href={`tel:${profile.phone}`}>
       {formatPhoneNumber(profile.phone)}

@@ -17,7 +17,7 @@
 		return {
 			id: data._id,
 			caption: data.description,
-			mediaUrl: data.img,
+			mediaUrl: data.image,
 			title: data.name,
 			phone: data.phone,
 			keywords: data.servicesFree,

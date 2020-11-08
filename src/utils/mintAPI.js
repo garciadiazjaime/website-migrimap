@@ -11,7 +11,7 @@ function getPlacesQuery(id = '' ) {
         phone
         servicesFree
         servicesNonFree
-        img
+        image
         website
         socialNetwork
         ceo
