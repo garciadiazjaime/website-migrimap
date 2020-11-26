@@ -6,6 +6,7 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import postcss from 'rollup-plugin-postcss';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -16,12 +17,27 @@ const onwarn = (warning, onwarn) =>
 	(warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) ||
 	onwarn(warning);
 
+const postcssOptions = () => ({
+	extensions: ['.scss', '.sass'],
+	extract: false,
+	minimize: true,
+	use: [
+		['sass', {
+			includePaths: [
+				'./src/theme',
+				'./node_modules',
+			]
+		}]
+	]
+});
+
 export default {
 	client: {
 		input: config.client.input(),
 		output: config.client.output(),
 		plugins: [
 			replace({
+				'process.mapboxToken': JSON.stringify("pk.eyJ1IjoibWludGl0bWVkaWEiLCJhIjoiY2s4ejFhcXNyMDIwMTNobXgzY3Z4NWJqdSJ9.MI6aZp0ww_JhSp1EgO8jrQ"),
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode),
 				'process.API_URL': process.env.API_URL || 'http://127.0.0.1:3030'
@@ -36,6 +52,8 @@ export default {
 				dedupe: ['svelte']
 			}),
 			commonjs(),
+
+			postcss(postcssOptions()),
 
 			legacy && babel({
 				extensions: ['.js', '.mjs', '.html', '.svelte'],
@@ -79,7 +97,8 @@ export default {
 			resolve({
 				dedupe: ['svelte']
 			}),
-			commonjs()
+			commonjs(),
+			postcss(postcssOptions())
 		],
 		external: Object.keys(pkg.dependencies).concat(require('module').builtinModules),
 

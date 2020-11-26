@@ -27,9 +27,11 @@
     <h2>{profile.name}</h2>
     <Image src={profile.image} alt={profile.title} height="150px"/>
     <a href={profile.gmaps} target="_blank">{profile.address}</a>
-    <Phone href={`tel:${profile.phone}`}>
-      {formatPhoneNumber(profile.phone)}
-    </Phone>
+    {#if profile.phone}
+      <Phone href={`tel:${profile.phone}`}>
+        {formatPhoneNumber(profile.phone)}
+      </Phone>
+    {/if}
     <a href={profile.socialNetwork} target="_blank">{profile.socialNetwork}</a>
     <a href={profile.website} target="_blank">{profile.website}</a>
   </div>
@@ -42,7 +44,7 @@
        {profile.profile}
     </p>
 
-    <div class="tag">Idiomas</div> 
+    <div class="tag">Idiomas</div>
     <p>
       {profile.language}
     </p>
@@ -71,7 +73,7 @@
     <p>
       {profile.ceo}
     </p>
-    
+
     <div class="tag">Encargado</div>
     <p>
       {profile.owner}
