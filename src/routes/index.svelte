@@ -29,7 +29,7 @@
 		return {
 			id: data._id,
 			caption: data.description,
-			mediaUrl: data.image,
+			mediaUrl: data.imageUrl,
 			title: data.name,
 			phone: data.phone,
 			keywords: data.servicesFree,
