@@ -67,7 +67,7 @@
 		{/each}
 	{/if}
 </div>
-<Drawer bind:drawerIsVisible shaded>
+<Drawer bind:isVisible={drawerIsVisible} shaded>
   <Profile profile={currentProfile} />
 </Drawer>
 <Modal bind:isVisible={modalIsVisible}>
