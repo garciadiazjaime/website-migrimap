@@ -1,8 +1,10 @@
 <script>
-  export let profile = {};
   import Image from 'mint-components/src/components/ImageLoader.svelte';
-  import Phone from 'mint-components/src/components/LinkButton.svelte';
+  import Button from 'mint-components/src/components/LinkButton.svelte';
+  import Location from 'mint-components/src/components/Location.svelte';
+  import Field from './Field.svelte';
   import { formatPhoneNumber } from 'mint-components/src/utils/postUtil';
+  export let profile = {};
 </script>
 <style>
   .profile {
@@ -10,73 +12,61 @@
     display: grid;
 		grid-column-gap: 20px;
     grid-row-gap: 20px;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: 1fr;
     align-items: start;
   }
-  .tag {
-    font-weight: 600;
-    font-size: 0.8rem;
-    opacity: .6;
+
+  @media (min-width: 600px) {
+		.profile {
+      grid-template-columns: 366px 1fr;
+		}
   }
-  p {
-    margin-top: 5px;
+
+
+  .linkbox {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: 3fr 2fr 2fr;
   }
 </style>
 <div class="profile">
   <div>
-    <h2>{profile.name}</h2>
-    <Image src={profile.image} alt={profile.title} height="150px"/>
-    <a href={profile.gmaps} target="_blank">{profile.address}</a>
-    {#if profile.phone}
-      <Phone href={`tel:${profile.phone}`}>
-        {formatPhoneNumber(profile.phone)}
-      </Phone>
+    <Image src={profile.mediaUrl} alt={profile.title} height="150px"/>
+    <h2>{profile.title}</h2>
+    {#if profile.address}
+      <Location address={profile.address} dist={profile.dist} coords={profile.gps} />
     {/if}
-    <a href={profile.socialNetwork} target="_blank">{profile.socialNetwork}</a>
-    <a href={profile.website} target="_blank">{profile.website}</a>
+    <div class="linkbox">
+      {#if profile.phone}
+      <Button href={`tel:${profile.phone}`}>
+        {formatPhoneNumber(profile.phone)}
+      </Button>
+      {/if}
+      {#if profile.socialNetwork}
+      <Button href={profile.socialNetwork} background="#3b5998" blank>
+        Facebook
+      </Button>
+      {/if}
+      {#if profile.website}
+      <Button href={profile.website} background="#008f11" blank>
+        Sitio Web
+      </Button>
+      {/if}
+    </div>
   </div>
   <div>
-    <p>
-      {profile.description}
-    </p>
-    <div class="tag">Perfil</div>
-    <p>
-       {profile.profile}
-    </p>
-
-    <div class="tag">Idiomas</div>
-    <p>
-      {profile.language}
-    </p>
-
-    <div class="tag">Capacidad</div>
-    <p>
-      {profile.capacity}
-    </p>
-
-    <div class="tag">Horarios</div>
-    <p>
-      {profile.schedule}
-    </p>
-
-      <div class="tag">Servicios gratuitos</div>
-    <p>
-      {profile.servicesFree}
-    </p>
-
-    <div class="tag">Servicios con costo</div>
-    <p>
-       {profile.servicesNonFree}
-    </p>
-
-    <div class="tag">Director</div>
-    <p>
-      {profile.ceo}
-    </p>
-
-    <div class="tag">Encargado</div>
-    <p>
-      {profile.owner}
-    </p>
+    {#if profile.caption}
+      <p>
+        {profile.caption}
+      </p>
+    {/if}
+    <Field label='Perfil' content={profile.keywords} />
+    <Field label='Idiomas' content={profile.language} />
+    <Field label='Capacidad' content={profile.capacity} />
+    <Field label='Horarios' content={profile.schedule} />
+    <Field label='Servicios gratuitos' content={profile.servicesFree} />
+    <Field label='Servicios con costo' content={profile.servicesNonFree} />
+    <Field label='Director' content={profile.ceo} />
+    <Field label='Encargado' content={profile.owner} />
   </div>
 </div>

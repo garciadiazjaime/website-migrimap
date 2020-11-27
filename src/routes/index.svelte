@@ -7,6 +7,7 @@
 	import Modal from 'mint-components/src/components/Modal.svelte';
   import LocationPicker from 'mint-components/src/components/LocationPicker.svelte';
   import UpdateLocationCTA from 'mint-components/src/components/UpdateLocationCTA.svelte';
+	//import { profile } from "console";
 
 	let places = [];
 	let drawerIsVisible = false;
@@ -28,12 +29,21 @@
 		console.log(data.phone)
 		return {
 			id: data._id,
-			caption: data.description,
 			mediaUrl: data.imageUrl,
 			title: data.name,
 			phone: data.phone,
-			keywords: data.servicesFree,
+			socialNetwork: data.socialNetwork,
+			website: data.website,
+			caption: data.description,
+			keywords: data.profile,
+			language: data.language,
 			address: data.address,
+			capacity: data.capacity,
+			schedule: data.schedule,
+			servicesFree: data.servicesFree,
+			servicesNonFree: data.servicesNonFree,
+			ceo: data.ceo,
+			owner: data.owner,
 			dist: 1500,
 			gps: [-117.1148935, 32.5062778],
 		}
@@ -63,7 +73,7 @@
 <div class="grid-container">
 	{#if places}
 		{#each places as place}
-			<Card profile={presenter(place)} cardAction={() => openProfile(place)} />
+			<Card profile={presenter(place)} cardAction={() => openProfile(presenter(place))} />
 		{/each}
 	{/if}
 </div>
