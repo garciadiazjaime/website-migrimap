@@ -4,16 +4,28 @@
 	import Profile from "../components/Profile.svelte";
 	import Card from 'mint-components/src/components/ProfileCard.svelte';
 	import Drawer from 'mint-components/src/components/Drawer.svelte';
+	import Modal from 'mint-components/src/components/Modal.svelte';
+  import LocationPicker from 'mint-components/src/components/LocationPicker.svelte';
+  import UpdateLocationCTA from 'mint-components/src/components/UpdateLocationCTA.svelte';
 
 	let places = [];
-	let visible;
+	let drawerIsVisible = false;
+  let modalIsVisible = false;
 	let currentProfile = {};
+
+	const defaultCoords = {
+    lat: 32.5286807,
+    lng: -117.0477024,
+    zoom: 11,
+    title: 'Zona Centro'
+  }
 
   onMount(async () => {
 		places = await getPlaces();
 	});
 
 	function presenter(data) {
+		console.log(data.phone)
 		return {
 			id: data._id,
 			caption: data.description,
@@ -28,7 +40,7 @@
 	}
 
 	function openProfile (profile) {
-		visible = true;
+		drawerIsVisible = true;
 		currentProfile = profile;
 	}
 </script>
@@ -45,6 +57,9 @@
 	}
 </style>
 
+<div on:click={() => modalIsVisible = true}>
+  <UpdateLocationCTA />
+</div>
 <div class="grid-container">
 	{#if places}
 		{#each places as place}
@@ -52,6 +67,11 @@
 		{/each}
 	{/if}
 </div>
-<Drawer bind:visible shaded>
+<Drawer bind:isVisible={drawerIsVisible} shaded>
   <Profile profile={currentProfile} />
 </Drawer>
+<Modal bind:isVisible={modalIsVisible}>
+  <LocationPicker {defaultCoords}>
+    ¿En qué área te encuentras?
+  </LocationPicker>
+</Modal>
