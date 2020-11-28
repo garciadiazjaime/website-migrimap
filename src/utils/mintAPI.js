@@ -1,7 +1,7 @@
-function getPlacesQuery(id = '' ) {
+function getPlacesQuery(lngLat) {
   return `
     {
-      migriPlace(id: "${id}") {
+      migriPlace(lngLat: ${JSON.stringify(lngLat) || null}) {
         _id
         name
         description
@@ -21,6 +21,10 @@ function getPlacesQuery(id = '' ) {
         capacity
         population
         category
+        dist
+        gps {
+          coordinates
+        }
       }
     }
   `
@@ -41,9 +45,9 @@ async function requestHelper(payload) {
   return await result.json()
 }
 
-async function getPlaces(id) {
+async function getPlaces(lngLat) {
   const payload = {
-    query: getPlacesQuery(id)
+    query: getPlacesQuery(lngLat)
   };
 
   const {

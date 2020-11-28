@@ -21,8 +21,16 @@
   }
 
   onMount(async () => {
-		places = await getPlaces();
+		await refreshProfiles()
 	});
+
+	async function refreshProfiles() {
+		const coordinates = JSON.parse(window.localStorage.getItem('@location'))
+
+		const lngLat = coordinates ? [coordinates.lng, coordinates.lat] : [defaultCoords.lng, defaultCoords.lat];
+
+		places = await getPlaces(lngLat);
+	}
 
 	function presenter(data) {
 		console.log(data.phone)
@@ -71,7 +79,7 @@
   <Profile profile={currentProfile} />
 </Drawer>
 <Modal bind:isVisible={modalIsVisible}>
-  <LocationPicker {defaultCoords}>
+  <LocationPicker {defaultCoords} on:coordinatesChange={refreshProfiles} >
     ¿En qué área te encuentras?
   </LocationPicker>
 </Modal>
