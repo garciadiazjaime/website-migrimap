@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "compression": "^1.7.1",
-    "mint-components": "^1.0.5",
+    "mint-components": "^1.0.6",
     "node-sass": "^5.0.0",
     "polka": "next",
     "sirv": "^1.0.0"
