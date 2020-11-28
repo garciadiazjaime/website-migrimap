@@ -38,7 +38,7 @@
     {/if}
     <div class="linkbox">
       {#if profile.phone}
-      <Button href={`tel:${profile.phone}`}>
+      <Button href={`tel:${profile.phone}`} background="#ff6745">
         {formatPhoneNumber(profile.phone)}
       </Button>
       {/if}

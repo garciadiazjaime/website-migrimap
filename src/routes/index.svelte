@@ -26,7 +26,6 @@
 	});
 
 	function presenter(data) {
-		console.log(data.phone)
 		return {
 			id: data._id,
 			mediaUrl: data.imageUrl,
@@ -59,21 +58,47 @@
 	<title>MigriMap</title>
 </svelte:head>
 <style>
+	h1 {
+		color: black;
+		background: #f0b513;
+		display: inline-block;
+		padding: 10px 20px;
+		line-height: 1.2;
+		margin-bottom: 30px;
+	}
+
+	.banner {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 40px;
+		background-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699');
+		background-size: cover;
+	}
 	.grid-container {
 		display: grid;
+		padding: 20px;
+		max-width: 1024px;
+		margin: 0 auto;
 		grid-column-gap: 20px;
 		grid-row-gap: 20px;
 		grid-template-columns: repeat( auto-fill, minmax(247px, 1fr));
 	}
 </style>
 
-<div on:click={() => modalIsVisible = true}>
-  <UpdateLocationCTA />
+<div class="banner">
+	<h1>MigriMap -  Directorio de recursos para migrantes</h1>
+	<div on:click={() => modalIsVisible = true}>
+		<UpdateLocationCTA />
+	</div>
 </div>
 <div class="grid-container">
 	{#if places}
 		{#each places as place}
-			<Card profile={presenter(place)} cardAction={() => openProfile(presenter(place))} />
+			<Card
+				profile={presenter(place)}
+				cardAction={() => openProfile(presenter(place))}
+				buttonColor="#ff6745"
+			/>
 		{/each}
 	{/if}
 </div>
