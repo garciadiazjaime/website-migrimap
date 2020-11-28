@@ -50,6 +50,7 @@
 
 <nav>
 	<ul>
-		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">Migrimap</a></li>
+		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href="/">Migrimap</a></li>
+		<li><a aria-current="{segment === "about" ? 'page' : undefined}" href="/about">Acerca</a></li>
 	</ul>
 </nav>
