@@ -7,6 +7,7 @@
 	import Modal from 'mint-components/src/components/Modal.svelte';
   import LocationPicker from 'mint-components/src/components/LocationPicker.svelte';
   import UpdateLocationCTA from 'mint-components/src/components/UpdateLocationCTA.svelte';
+	//import { profile } from "console";
 
 	let places = [];
 	let drawerIsVisible = false;
@@ -25,15 +26,23 @@
 	});
 
 	function presenter(data) {
-		console.log(data.phone)
 		return {
 			id: data._id,
-			caption: data.description,
 			mediaUrl: data.imageUrl,
 			title: data.name,
 			phone: data.phone,
-			keywords: data.servicesFree,
+			socialNetwork: data.socialNetwork,
+			website: data.website,
+			caption: data.description,
+			keywords: data.profile,
+			language: data.language,
 			address: data.address,
+			capacity: data.capacity,
+			schedule: data.schedule,
+			servicesFree: data.servicesFree,
+			servicesNonFree: data.servicesNonFree,
+			ceo: data.ceo,
+			owner: data.owner,
 			dist: 1500,
 			gps: [-117.1148935, 32.5062778],
 		}
@@ -49,21 +58,47 @@
 	<title>MigriMap</title>
 </svelte:head>
 <style>
+	h1 {
+		color: black;
+		background: #f0b513;
+		display: inline-block;
+		padding: 10px 20px;
+		line-height: 1.2;
+		margin-bottom: 30px;
+	}
+
+	.banner {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 40px;
+		background-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699');
+		background-size: cover;
+	}
 	.grid-container {
 		display: grid;
+		padding: 20px;
+		max-width: 1024px;
+		margin: 0 auto;
 		grid-column-gap: 20px;
 		grid-row-gap: 20px;
 		grid-template-columns: repeat( auto-fill, minmax(247px, 1fr));
 	}
 </style>
 
-<div on:click={() => modalIsVisible = true}>
-  <UpdateLocationCTA />
+<div class="banner">
+	<h1>MigriMap -  Directorio de recursos para migrantes</h1>
+	<div on:click={() => modalIsVisible = true}>
+		<UpdateLocationCTA />
+	</div>
 </div>
 <div class="grid-container">
 	{#if places}
 		{#each places as place}
-			<Card profile={presenter(place)} cardAction={() => openProfile(place)} />
+			<Card
+				profile={presenter(place)}
+				cardAction={() => openProfile(presenter(place))}
+				buttonColor="#ff6745"
+			/>
 		{/each}
 	{/if}
 </div>
