@@ -7,7 +7,6 @@
 	import Modal from 'mint-components/src/components/Modal.svelte';
   import LocationPicker from 'mint-components/src/components/LocationPicker.svelte';
   import UpdateLocationCTA from 'mint-components/src/components/UpdateLocationCTA.svelte';
-	//import { profile } from "console";
 
 	let places = [];
 	let drawerIsVisible = false;
