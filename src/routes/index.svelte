@@ -23,7 +23,6 @@
   onMount(async () => {
 		await refreshProfiles()
 	});
-
 	async function refreshProfiles() {
 		const coordinates = JSON.parse(window.localStorage.getItem('@location'))
 
@@ -33,6 +32,7 @@
 	}
 
 	function presenter(data) {
+		console.log(data)
 		return {
 			id: data._id,
 			mediaUrl: data.imageUrl,
@@ -50,8 +50,8 @@
 			servicesNonFree: data.servicesNonFree,
 			ceo: data.ceo,
 			owner: data.owner,
-			dist: 1500,
-			gps: [-117.1148935, 32.5062778],
+			dist: data.dist,
+			gps: data.gps.coordinates,
 		}
 	}
 
